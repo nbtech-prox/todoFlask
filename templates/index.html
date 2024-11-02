@@ -7,17 +7,17 @@
         <script src="https://cdn.tailwindcss.com"></script>
     </head>
     <body>
-        <div class="flex flex-col items-center bg-gray-300">
-            <h1 class="text-4xl font-black py-5">Adicionar nova tarefa</h1>
+        <div class="flex flex-col items-center bg-gray-300 py-2">
+            <h1 class="text-4xl font-black">Adicionar nova tarefa</h1>
         </div>
-        <div class="flex flex-col items-center py-10">
+        <div class="flex flex-col items-center mt-12 mb-10">
             <form action="/create" method="POST">
                 <label class="relative">
                     <input
                         type="text"
                         name="description"
                         required
-                        class="px-3 py-2 test-lg border-2 border-gray-400 rounded-full hover:border-gray-600 transition duration-200"
+                        class="px-3 py-2 test-lg border-2 border-gray-400 rounded-full hover:border-gray-500"
                     />
                     <span
                         class="absolute bottom-6 left-5 text-xs px-2 uppercase transition duration-200 input-text bg-white"
@@ -32,33 +32,49 @@
                 </button>
             </form>
         </div>
+        <div class="flex flex-col items-center mb-3">
+            <p class="text-xs">Para atualizar selecione a tarefa.</p>
+        </div>
         <div class="flex flex-col items-center">
             <h2 class="font-semibold text-lg">Lista de Tarefas</h2>
         </div>
-        <ul>
-            {% for task in tasks %}
-            <li>
-                <form
-                    action="/update/{{ task.id }}"
-                    method="POST"
-                    style="display: inline"
-                >
-                    <input
-                        type="text"
-                        name="description"
-                        value="{{ task.description }}"
-                    />
-                    <button type="submit">Atualizar</button>
-                </form>
-                <form
-                    action="/delete/{{ task.id }}"
-                    method="POST"
-                    style="display: inline"
-                >
-                    <button type="submit">Eliminar</button>
-                </form>
-            </li>
-            {% endfor %}
-        </ul>
+        <div class="container">
+            <table class="table-auto border-separate border border-slate-500">
+                <tbody>
+                    <tr>
+                        <td>
+                            {% for task in tasks %}
+                            <form
+                                action="/update/{{ task.id }}"
+                                method="POST"
+                                style="display: inline"
+                            >
+                                <input
+                                    type="text"
+                                    name="description"
+                                    value="{{ task.description }}"
+                                />
+                            </form>
+                            <form
+                                action="/delete/{{ task.id }}"
+                                method="POST"
+                                style="display: inline"
+                            ></form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button type="submit">Atualizar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button type="submit">Eliminar</button>
+                        </td>
+                        {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </body>
 </html>
